@@ -1,6 +1,6 @@
 //Exercises 1-5
 
-const pokemon = require('./data.js')
+// const pokemon = require('./data.js')
 
 const game = {
     party: [],
@@ -23,7 +23,8 @@ const game = {
       { level: "medium" }
     ],
 
-  }
+  };
+
 
   game.party = ["Bulbasaur", "Charmander", "Squirtle", "Pikachu"]
   console.log(game.party)
@@ -68,10 +69,80 @@ game.catchPokemon = function(pokemonObj) {
 };
 console.log(game.party);
 
-const choosePokemon = { number: 16, name: "Pidgey", type: "normal", hp: 40, starter: false }
+let choosePokemon = { number: 16, name: "Pidgey", type: "normal", hp: 40, starter: false }
 game.catchPokemon(choosePokemon);
 
 console.log(game.party);
 
 // Exercise 11
 
+game.catchPokemon = function(pokemonObj) {
+  this.party.push(pokemonObj);
+
+  let pokeballItem = this.items.find(item => item.name === "pokeball");
+
+
+  if (pokeballItem && pokeballItem.quantity > 0) {
+      pokeballItem.quantity -= 1;
+      console.log(`${pokemonObj.name} caught! You have ${pokeballItem.quantity} Pokéballs left.`);
+  } else {
+      console.log("No Pokéballs left to catch Pokémon!");
+  }
+};
+
+ choosePokemon = { number: 16, name: "Pidgey", type: "normal", hp: 40, starter: false };
+game.catchPokemon(choosePokemon);
+
+//Exercise 12
+
+game.gyms.forEach(gym => {
+  if (gym.difficulty < 6) {
+      gym.completed = true;
+  }
+});
+
+console.log(game.gyms);
+
+//Exercise 13
+
+game.gymStatus = function() {
+
+  let completedGyms = 0;
+  let incompleteGyms = 0;
+
+  this.gyms.forEach(gym => {
+ 
+    if (gym.completed) {
+        completedGyms += 1;
+    } else {
+        incompleteGyms += 1;
+    }
+});
+
+console.log(`Completed Gyms: ${completedGyms}`);
+console.log(`Incomplete Gyms: ${incompleteGyms}`);
+};
+
+game.gymStatus();
+
+//Exercise 14
+
+game.partyCount = function() {
+    return this.party.length;
+};
+
+console.log(`Number of Pokémon in the party: ${game.partyCount()}`);
+
+//Exercise 15
+
+game.gyms.forEach(gym => {
+  if (gym.difficulty < 8) {
+      gym.completed = true;
+  }
+});
+
+console.log(game.gyms); 
+
+//Exercise 16
+
+console.log(game);
